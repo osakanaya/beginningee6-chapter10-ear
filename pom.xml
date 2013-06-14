@@ -1,0 +1,132 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.beginningee6.book</groupId>
+	<artifactId>beginningee6-chapter10-ear</artifactId>
+	<version>0.0.2-SNAPSHOT</version>
+	<packaging>ear</packaging>
+
+	<name>beginningee6-chapter10-ear</name>
+	<url>http://maven.apache.org</url>
+
+	<organization>
+		<name>Primagest, Inc.</name>
+		<url>http://www.primagest.co.jp/</url>
+	</organization>
+
+	<scm>
+		<connection>
+			scm:svn:http://192.168.41.37/svn/beginningee6-chapter10/trunk/beginningee6-chapter10-ear
+		</connection>
+		<developerConnection>
+			scm:svn:http://192.168.41.37/svn/beginningee6-chapter10/trunk/beginningee6-chapter10-ear
+		</developerConnection>
+	</scm>
+	
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>ipm.artifactory.server</id>
+			<name>Commons apps release repository</name>
+			<url>http://192.168.41.37/artifactory/common-apps-release/</url>
+			<layout>default</layout>
+		</repository>
+		<snapshotRepository>
+			<uniqueVersion>true</uniqueVersion>
+			<id>ipm.artifactory.server</id>
+			<name>Commons apps snapshot repository</name>
+			<url>http://192.168.41.37/artifactory/common-apps-snapshot/</url>
+			<layout>default</layout>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<version>6</version>
+					<generateApplicationXml>true</generateApplicationXml>
+					<displayName>Chapter10 - EAR Application Example</displayName>
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<modules>
+						<webModule>
+							<groupId>org.beginningee6.book</groupId>
+							<artifactId>beginningee6-chapter10-jsf</artifactId>
+							<contextRoot>/sample-jsf</contextRoot>
+						</webModule>
+						<ejbModule>
+							<groupId>org.beginningee6.book</groupId>
+							<artifactId>beginningee6-chapter10-ejb</artifactId>
+						</ejbModule>
+					</modules>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Version>subversion-${env.SVN_REVISION}, ${env.BUILD_TAG}</Implementation-Version>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.jboss.as.plugins</groupId>
+				<artifactId>jboss-as-maven-plugin</artifactId>
+				<version>7.1.1.Final</version>
+				<configuration>
+					<hostname>192.168.41.75</hostname>
+					<username>administrator</username>
+					<password>Passw0rd1</password>
+					<port>9999</port>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.1</version>
+				<configuration>
+					<username>sashida</username>
+					<password>Passw0rd1</password>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.beginningee6.book</groupId>
+			<artifactId>beginningee6-chapter10-jsf</artifactId>
+			<version>0.0.1</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>org.beginningee6.book</groupId>
+			<artifactId>beginningee6-chapter10-ear-lib</artifactId>
+			<version>0.0.1</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>org.beginningee6.book</groupId>
+			<artifactId>beginningee6-chapter10-ejb</artifactId>
+			<version>0.0.1</version>
+			<type>ejb</type>
+		</dependency>
+	</dependencies>
+
+</project>
